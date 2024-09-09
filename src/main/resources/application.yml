@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: SB-Gestion-MatriculasAcademicas-Reactive
+  data:
+    mongodb:
+      uri: mongodb://mitocode:pasw@localhost:27017/bd-webflux?authSource=admin
+      database: bd-webflux
+
