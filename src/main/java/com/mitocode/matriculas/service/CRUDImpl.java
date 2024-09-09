@@ -16,7 +16,7 @@ public abstract class CRUDImpl<T, ID> implements CRUD<T, ID> {
     @Override
     public Mono<T> actualizar(ID id, T t) {
         //LUEGO SE AGREGARA VALIDACION DE ID
-        return getRepo().save(t);
+        return getRepo().findById(id).flatMap(e -> getRepo().save(t));
     }
 
     @Override
@@ -32,7 +32,16 @@ public abstract class CRUDImpl<T, ID> implements CRUD<T, ID> {
     @Override
     public Mono<Boolean> eliminar(ID id) {
         //AGREGAR VALIDACION SI ES TRUE O FALSE
-        return getRepo().deleteById(id).thenReturn(true);
+        return  getRepo().findById(id)
+                .hasElement()
+                .flatMap(resultado -> {
+                    if(resultado){
+                        return getRepo().deleteById(id).thenReturn(true);
+                    }else {
+                        return Mono.just(false);
+                    }
+                });
+
     }
 
 
