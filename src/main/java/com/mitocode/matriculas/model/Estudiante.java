@@ -20,9 +20,9 @@ public class Estudiante {
     @Field
     private String apellido;
     @Field
-    private String dni;
+    private Integer dni;
     @Field
-    private String edad;
+    private Short edad;
 
 
 }

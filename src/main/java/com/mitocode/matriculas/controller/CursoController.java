@@ -3,6 +3,7 @@ package com.mitocode.matriculas.controller;
 import com.mitocode.matriculas.dto.CursoDTO;
 import com.mitocode.matriculas.model.Curso;
 import com.mitocode.matriculas.service.CursoService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.MediaType;
@@ -45,7 +46,7 @@ public class CursoController {
     }
 
     @PutMapping
-    public Mono<ResponseEntity<CursoDTO>> guardar(@RequestBody CursoDTO curso, final ServerHttpRequest req) {
+    public Mono<ResponseEntity<CursoDTO>> guardar(@RequestBody @Valid CursoDTO curso, final ServerHttpRequest req) {
         return cursoService.guardar(this.convertToCurso(curso))
                 .map(this::convertToCursoDTO)
                 .map(e -> ResponseEntity.created(

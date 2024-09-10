@@ -3,6 +3,7 @@ package com.mitocode.matriculas.controller;
 import com.mitocode.matriculas.dto.EstudianteDTO;
 import com.mitocode.matriculas.model.Estudiante;
 import com.mitocode.matriculas.service.EstudianteService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.MediaType;
@@ -43,7 +44,7 @@ public class EstudianteController {
     }
 
     @PutMapping
-    public Mono<ResponseEntity<EstudianteDTO>> guardar(@RequestBody EstudianteDTO estudiante, final ServerHttpRequest req) {
+    public Mono<ResponseEntity<EstudianteDTO>> guardar(@RequestBody @Valid EstudianteDTO estudiante, final ServerHttpRequest req) {
         return estudianteService.guardar(this.convertToEstudiante(estudiante))
                 .map(this::convertToEstudianteDTO)
                 .map(e -> ResponseEntity.created(
@@ -54,7 +55,7 @@ public class EstudianteController {
     }
 
     @PutMapping("/{id}")
-    public Mono<ResponseEntity<EstudianteDTO>> actualizar(@PathVariable("id") String id, @RequestBody EstudianteDTO estudiante) {
+    public Mono<ResponseEntity<EstudianteDTO>> actualizar(@PathVariable("id") String id, @RequestBody @Valid EstudianteDTO estudiante) {
         return Mono.just(estudiante)
                 .map(this::convertToEstudiante)
                 .map(e -> {
