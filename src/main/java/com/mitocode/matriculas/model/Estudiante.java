@@ -14,15 +14,15 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class Estudiante {
 
     @Id
-    private String id;
+    private String idEstudiante;
     @Field
-    private String nombre;
+    private String nombreEstudiante;
     @Field
-    private String apellido;
+    private String apellidoEstudiante;
     @Field
-    private Integer dni;
+    private Integer dniEstudiante;
     @Field
-    private Short edad;
+    private Short edadEstudiante;
 
 
 }

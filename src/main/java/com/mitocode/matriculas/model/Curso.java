@@ -14,13 +14,13 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class Curso {
 
     @Id
-    private String id;
+    private String idCurso;
     @Field
-    private String nombre;
+    private String nombreCurso;
     @Field
-    private String siglas;
+    private String siglasCurso;
     @Field
-    private Boolean estado;
+    private Boolean estadoCurso;
 
 
 }

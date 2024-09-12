@@ -6,6 +6,7 @@ import com.mitocode.matriculas.service.EstudianteService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -21,6 +22,7 @@ import java.net.URI;
 public class EstudianteController {
 
     private final EstudianteService estudianteService;
+    @Qualifier("estudiantesMapper")
     private final ModelMapper modelMapper;
 
     @GetMapping
@@ -48,7 +50,7 @@ public class EstudianteController {
         return estudianteService.guardar(this.convertToEstudiante(estudiante))
                 .map(this::convertToEstudianteDTO)
                 .map(e -> ResponseEntity.created(
-                                URI.create(req.getURI().toString().concat("/").concat(e.getIdEstudiante())))
+                                URI.create(req.getURI().toString().concat("/").concat(e.getId())))
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(e)
                 ).defaultIfEmpty(ResponseEntity.notFound().build());
@@ -59,7 +61,7 @@ public class EstudianteController {
         return Mono.just(estudiante)
                 .map(this::convertToEstudiante)
                 .map(e -> {
-                    e.setId(id);
+                    e.setIdEstudiante(id);
                     return e;
                 })
                 .flatMap(e -> estudianteService.actualizar(id, e))
@@ -83,7 +85,7 @@ public class EstudianteController {
                 });
     }
 
-
+    //    implement Mapper
     public EstudianteDTO convertToEstudianteDTO(Estudiante estudiante) {
         return modelMapper.map(estudiante, EstudianteDTO.class);
     }

@@ -6,6 +6,7 @@ import com.mitocode.matriculas.service.CursoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -21,6 +22,8 @@ import java.net.URI;
 public class CursoController {
 
     private final CursoService cursoService;
+
+    @Qualifier("cursosMapper")
     private final ModelMapper modelMapper;
 
     @GetMapping
@@ -50,7 +53,7 @@ public class CursoController {
         return cursoService.guardar(this.convertToCurso(curso))
                 .map(this::convertToCursoDTO)
                 .map(e -> ResponseEntity.created(
-                                URI.create(req.getURI().toString().concat("/").concat(e.getIdCurso()))
+                                URI.create(req.getURI().toString().concat("/").concat(e.getId()))
                         )
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(e))
@@ -61,7 +64,7 @@ public class CursoController {
     public Mono<ResponseEntity<CursoDTO>> actualizar(@PathVariable("id") String id, @RequestBody CursoDTO curso) {
         return Mono.just(this.convertToCurso(curso))
                 .map(e -> {
-                    e.setId(id);
+                    e.setIdCurso(id);
                     return e;
                 })
                 .flatMap(e -> cursoService.actualizar(id, e))
@@ -84,6 +87,8 @@ public class CursoController {
                 });
     }
 
+
+//    implement Mapper
     public CursoDTO convertToCursoDTO(Curso curso) {
         return modelMapper.map(curso, CursoDTO.class);
     }
