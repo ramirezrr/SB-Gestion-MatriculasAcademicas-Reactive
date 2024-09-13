@@ -5,6 +5,7 @@ import com.mitocode.matriculas.repository.EstudianteRepository;
 import com.mitocode.matriculas.repository.GenericoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 
 
 @Service
@@ -16,5 +17,15 @@ public class EstudianteServiceImpl extends CRUDImpl<Estudiante, String> implemen
     @Override
     protected GenericoRepository<Estudiante, String> getRepo() {
         return estudianteRepository;
+    }
+
+    @Override
+    public Flux<Estudiante> ordenarEstudianteEdadDescendente() {
+        return estudianteRepository.findAllByOrderByEdadEstudianteDesc();
+    }
+
+    @Override
+    public Flux<Estudiante> ordenarEstudianteEdadAscendente() {
+        return estudianteRepository.findAllByOrderByEdadEstudianteAsc();
     }
 }

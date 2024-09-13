@@ -107,6 +107,28 @@ public class EstudianteController {
     }
 
 
+    @GetMapping("/listarPorEdadDesc")
+    public Mono<ResponseEntity<Flux<EstudianteDTO>>> ordenarEstudianteEdadDescendente() {
+        Flux<EstudianteDTO> fx = estudianteService.ordenarEstudianteEdadDescendente().map(this::convertToEstudianteDTO); //e -> convertToDto(e)
+
+        return Mono.just(ResponseEntity.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(fx)
+                )
+                .defaultIfEmpty(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/listarPorEdadAsc")
+    public Mono<ResponseEntity<Flux<EstudianteDTO>>> ordenarEstudianteEdadAscendente() {
+        Flux<EstudianteDTO> fx = estudianteService.ordenarEstudianteEdadAscendente().map(this::convertToEstudianteDTO); //e -> convertToDto(e)
+
+        return Mono.just(ResponseEntity.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(fx)
+                )
+                .defaultIfEmpty(ResponseEntity.notFound().build());
+    }
+
     //    implement Mapper
     public EstudianteDTO convertToEstudianteDTO(Estudiante estudiante) {
         return modelMapper.map(estudiante, EstudianteDTO.class);
