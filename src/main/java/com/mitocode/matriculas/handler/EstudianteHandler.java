@@ -96,6 +96,19 @@ public class EstudianteHandler {
                 });
     }
 
+    public Mono<ServerResponse> ordenarEstudianteEdadDescendente(ServerRequest request) {
+        return ServerResponse
+                .ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(service.ordenarEstudianteEdadDescendente().map(this::convertToDto), EstudianteDTO.class);
+    }
+    public Mono<ServerResponse> ordenarEstudianteEdadAscendente(ServerRequest request) {
+        return ServerResponse
+                .ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(service.ordenarEstudianteEdadAscendente().map(this::convertToDto), EstudianteDTO.class);
+    }
+
     private EstudianteDTO convertToDto(Estudiante model) {
         return modelMapper.map(model, EstudianteDTO.class);
     }

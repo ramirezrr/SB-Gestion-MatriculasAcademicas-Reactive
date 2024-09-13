@@ -28,6 +28,8 @@ public class RouterConfig {
     @Bean
     public RouterFunction<ServerResponse> routesEstudiante(EstudianteHandler handler) { //, ClientHandler clientHandler
         return route(GET("/v2/estudiantes"), handler::findAll) //req -> handler.findAll(req)
+                .andRoute(GET("/v2/estudiantes/asc"), handler::ordenarEstudianteEdadAscendente)
+                .andRoute(GET("/v2/estudiantes/desc"), handler::ordenarEstudianteEdadDescendente)
                 .andRoute(GET("/v2/estudiantes/{id}"), handler::findById)
                 .andRoute(POST("/v2/estudiantes"), handler::save)
                 .andRoute(PUT("/v2/estudiantes/{id}"), handler::update)
