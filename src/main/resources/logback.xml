@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<configuration>
+
+    <property name="LOG_PATTERN" value="%date{yyyy-MM-dd HH:mm:ss.SSS} [%X{X-Request-ID}] %-5level[%thread] %logger{56}.%method:%L - %msg%n"/>
+
+    <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>${LOG_PATTERN}</pattern>
+        </layout>
+    </appender>
+
+    <appender name="fileLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+        <!-- file: Es la ruta donde se dejará los logs.-->
+        <file>./logs/matriculasSb.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--fileNamePattern: Genera backup luego de rebasar lo asignado en maxFileSize-->
+            <fileNamePattern>./logs/archive/matriculasSb-%d{yyyy-MM-dd}-%i.log.zip</fileNamePattern>
+            <maxFileSize>100MB</maxFileSize>
+            <maxHistory>120</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <!--level="INFO": Registra solo los logs de tipo INFO. En properties si pones: logging.level.root=info este prevalece por sobre el xml-->
+    <root level="INFO">
+        <!-- Para solo consola, comenta la línea del RollingFile -->
+        <appender-ref ref="consoleLog"/>
+        <!-- Para solo archivo, comenta la línea del Console -->
+        <appender-ref ref="fileLog"/>
+    </root>
+</configuration>
