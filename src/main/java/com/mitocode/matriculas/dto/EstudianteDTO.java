@@ -15,14 +15,14 @@ public class EstudianteDTO {
 
     private String id;
 
-    @NotNull(message = "El campo nombreEstudiante es obligatorio.")
-    @Size(min = 2, message = "El campo nombreEstudiante acepta mínimo 2 letras.")
-    @Pattern(regexp = "^[A-Za-zñÑáéíóúÁÉÍÓÚ]{2,}( [A-Za-zñÑáéíóúÁÉÍÓÚ]{2,})*$", message = "error en nombreeeee")
+    @NotNull(message = "El campo nombre es obligatorio.")
+    @Size(min = 2, message = "El campo nombre acepta mínimo 2 letras.")
+    @Pattern(regexp = "^[A-Za-zñÑáéíóúÁÉÍÓÚ]{2,}( [A-Za-zñÑáéíóúÁÉÍÓÚ]{2,})*$", message = "El campo nombre solo acepta letras.")
     private String nombre;
 
-    @NotNull(message = "El campo apellidoEstudiante es obligatorio")
-    @Size(min = 2, message = "El campo nombreEstudiante acepta mínimo 2 letras.")
-    @Pattern(regexp = "^[A-Za-zñÑáéíóúÁÉÍÓÚ]{2,}( [A-Za-zñÑáéíóúÁÉÍÓÚ]{2,})*$", message = "El campo nombreEstudiante solo acepta letras.")
+    @NotNull(message = "El campo apellido es obligatorio")
+    @Size(min = 2, message = "El campo apellido acepta mínimo 2 letras.")
+    @Pattern(regexp = "^[A-Za-zñÑáéíóúÁÉÍÓÚ]{2,}( [A-Za-zñÑáéíóúÁÉÍÓÚ]{2,})*$", message = "El campo apellido solo acepta letras.")
     private String apellido;
 
     @NotNull(message = "El campo dniEstudiante es obligatorio")
