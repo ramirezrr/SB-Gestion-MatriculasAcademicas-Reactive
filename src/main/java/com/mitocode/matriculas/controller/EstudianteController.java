@@ -6,6 +6,7 @@ import com.mitocode.matriculas.paginacion.PageSupport;
 import com.mitocode.matriculas.service.EstudianteService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +19,7 @@ import reactor.core.publisher.Mono;
 
 import java.net.URI;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("estudiantes")
@@ -49,6 +51,7 @@ public class EstudianteController {
 
     @PutMapping
     public Mono<ResponseEntity<EstudianteDTO>> guardar(@RequestBody @Valid EstudianteDTO estudiante, final ServerHttpRequest req) {
+        log.info("Inicia proceso de guardar, body: \n {}", estudiante.toString());
         return estudianteService.guardar(this.convertToEstudiante(estudiante))
                 .map(this::convertToEstudianteDTO)
                 .map(e -> ResponseEntity.created(
