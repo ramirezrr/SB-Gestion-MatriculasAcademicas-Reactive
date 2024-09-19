@@ -17,6 +17,9 @@ cursos que los estudiantes están matriculados.
 - **Configuración de Logback** para una gestión eficiente de logs.
 - **Uso de filtros** para agregar un X-Request-ID en cada registro de log y en el header de respuesta, mejorando la trazabilidad de las operaciones.
 - **Paginación** de resultados para facilitar la visualización de grandes conjuntos de datos.
+- **Funcional Endpoints:** Se crearon endpoints funcionales para la creación de todos los servicios.
+- **Validación de Inputs**: Se implementó validación de inputs utilizando @Valid y RequestValidator Funcional.
+- **Control de Excepciones Globales**: Se implementó control de excepciones globales para manejar errores de manera centralizada.
 
 ### Tecnologías Utilizadas
 - **Spring Boot**: 3.3.3
@@ -44,6 +47,13 @@ cursos que los estudiantes están matriculados.
 ## Ejecución y Pruebas
 
 Se agregó la implementación de CommandLineRunner para inicializar los roles y usuarios en la aplicación. Se eliminan todos los roles y usuarios existentes y se crean nuevos con permisos ADMIN y USER. Se utiliza BCryptPasswordEncoder para encriptar las contraseñas
+
+## Instalación
+1. Clona el repositorio.
+2. Ejecuta `mvn clean install` para construir el proyecto.
+3. Configura las propiedades de conexión a la base de datos MongoDB.
+4. Inicia la aplicación con `mvn spring-boot:run`.
+
 
 ### Login, Seguridad
 Para realizar una solicitud de login y generar el **TOKEN**, puedes usar la siguiente petición **POST**:
@@ -119,9 +129,3 @@ Authorization: Bearer <tu_token_JWT>
 ```
 
 Recuerda que para todas las peticiones que requieran autenticación JWT, debes reemplazar `<tu_token_JWT>` con el token correspondiente que obtuviste durante el proceso de autenticación.
-
-## Ejecutar:
-```shell
-spring-boot:run
-```
-   
